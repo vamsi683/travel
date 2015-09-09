@@ -67,12 +67,12 @@ class Users extends Front_Controller
         if ($this->auth->is_logged_in() !== false) {
             Template::redirect('/');
         }
-        Assets::add_js(array('jquery.validate.js','classie.js'));
+        Assets::add_js(array('jquery.validate.js'));
         Assets::add_js(
                 $this->load->view('user_login_js', array('settings' => $this->siteSettings), true),
                 'inline'
             );
-        Assets::add_css(array('normalize.css','codrops_input.css', 'codrops_set2.css'));
+       // Assets::add_css(array('normalize.css','codrops_input.css', 'codrops_set2.css'));
         Assets::add_module_css('users', 'login.css');
         // Try to login.
         if (isset($_POST['log-me-in'])
@@ -111,7 +111,8 @@ class Users extends Front_Controller
 
         // Prompt the user to login.
         Template::set('page_title', 'Login');
-        Template::render('login');
+       // Template::render('login');
+         Template::render();
     }
 
     /**

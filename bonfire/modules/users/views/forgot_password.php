@@ -1,36 +1,31 @@
-<div class="page-header">
-	<h1><?php echo lang('us_reset_password'); ?></h1>
-</div>
+<div class="container clearfix">
+    <div class="nobottommargin">
+        <div class="row omb_row-sm-offset-3">
+            <div class="col-xs-12 col-sm-6">
+                <h3><?php echo lang('us_reset_password'); ?></h3>
+            </div>
+        </div> 
+        <div class="well well-lg nobottommargin">
+                <div class="alert alert-info fade in">
+                    <?php echo lang('us_reset_note'); ?>
+                </div>
+                <?php echo form_open($this->uri->uri_string(), array( 'autocomplete' => 'off', 'id' => 'frgtpwd_frm', 'name' => 'frgtpwd_frm', 'class' => 'nobottommargin')); ?>
+                <div class="row omb_row-sm-offset-3">
+                    <div class="col-xs-12 col-sm-6 content ">	
+                        <div class="col_full">
+                            <label for="frgtpwd_frm-email"><?php echo lang('bf_email'); ?>:</label>
+                            <input  tabindex="1" type="text" id="email" name="email" value="<?php echo set_value('email'); ?>" class="form-control" />
+                        </div>
+                   
+                    </div>
+                </div>
+                <div class="row omb_row-sm-offset-3">
+                    <div class="col-xs-12 col-sm-6">	
+                            <input class="button button-3d nomargin" type="submit" name="send" value="<?php e(lang('us_send_password')); ?>" />
+                    </div>
+                </div>	    
 
-<?php if (validation_errors()) : ?>
-	<div class="alert alert-error fade in">
-		<?php echo validation_errors(); ?>
-	</div>
-<?php endif; ?>
-
-<div class="alert alert-info fade in">
-	<?php echo lang('us_reset_note'); ?>
-</div>
-
-<div class="row-fluid">
-	<div class="span12">
-
-<?php echo form_open($this->uri->uri_string(), array('class' => "form-horizontal", 'autocomplete' => 'off')); ?>
-
-	<div class="control-group <?php echo iif( form_error('email') , 'error'); ?>">
-		<label class="control-label required" for="email"><?php echo lang('bf_email'); ?></label>
-		<div class="controls">
-			<input class="span6" type="text" name="email" id="email" value="<?php echo set_value('email') ?>" />
-		</div>
-	</div>
-
-	<div class="control-group">
-		<div class="controls">
-			<input class="btn btn-primary" type="submit" name="send" value="<?php e(lang('us_send_password')); ?>" />
-		</div>
-	</div>
-
-<?php echo form_close(); ?>
-
-	</div>
+	 <?php echo form_close(); ?>
+        </div>
+    </div>
 </div>
