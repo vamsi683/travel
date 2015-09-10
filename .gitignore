@@ -46,7 +46,7 @@ application/modules/**/.hg/*
 
 
 # Ignore all custom modules.
-application/modules/*
+#application/modules/*
 # Except the following modules:
 
 # Remove PHPStorm Project folders
@@ -54,7 +54,7 @@ bonfire/.ideas
 .idea/*
 
 # Ignore the installed.txt file
-public/install/installed.txt
+public_html/install/installed.txt
 
 # Ignore any composer downloaded packages
 vendor/*
