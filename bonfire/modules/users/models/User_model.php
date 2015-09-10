@@ -824,80 +824,27 @@ class User_model extends BF_Model
         $error          = false;
         $ccAdmin      = false;
 
-        switch ($activation_method) {
-            case 0:
-                // No activation required.
-                // Activate the user and send confirmation email.
-                $subject = str_replace(
-                    '[SITE_TITLE]',
-                    $this->settings_lib->item('site.title'),
-                    lang('us_account_reg_complete')
-                );
+        $activation_code    = $this->deactivate($user_id);
 
-                $emailView  = '_emails/activated';
-                $message    .= lang('us_account_active_login');
-
-                $emailMsgData = array(
-                    'title' => $site_title,
-                    'link'  => site_url(),
-                );
-                break;
-            case 1:
-                // Email Activiation.
-                // Run the account deactivate to assure everything is set correctly.
-                $activation_code    = $this->deactivate($user_id);
-
-                // Create the link to activate membership
-                $activate_link = site_url("activate/{$user_id}");
-                $subject            =  lang('us_email_subj_activate');
-                $emailView          = '_emails/activate';
-                $message            .= lang('us_check_activate_email');
-
-                $emailMsgData = array(
-                    'title' => $site_title,
-                    'code'  => $activation_code,
-                    'link'  => $activate_link
-                );
-                break;
-            case 2:
-                // Admin Activation.
-                $ccAdmin   = true;
-                $subject    =  lang('us_email_subj_pending');
-                $emailView  = '_emails/pending';
-                $message    .= lang('us_admin_approval_pending');
-
-                $emailMsgData = array(
-                    'title' => $site_title,
-                );
-                break;
-        }
-
-        $email_mess = $this->load->view($emailView, $emailMsgData, true);
+        // Create the link to activate membership
+        $activate_link = site_url("activate/{$user_id}/{$activation_code}");
 
         // Now send the email
         $this->load->library('emailer/emailer');
         $data = array(
             'to'        => $this->find($user_id)->email,
             'subject'   => $subject,
-            'message'   => $email_mess,
+            'variables'   => array(
+                                array('name'=> 'SITE_URL',				'content' 	=> site_url()),
+                                array('name'=> 'SITETITLE',				'content' 	=> $this->settings_lib->item('site.title')),
+                                array('name'=> 'ACTIVATIONLINK',		 'content' 	=> $activate_link),
+                            ),
+            'template_name' =>  'SIGNUP_ACCOUNT'
         );
 
         if ($this->emailer->send($data)) {
-            // If the message was sent successfully and the admin must be notified
-            // (Admin Activation is enabled), send another email to the system_email.
-            if ($ccAdmin) {
-                /**
-                 * @todo Add a setting to allow the user to change the email address
-                 * of the recipient of this message.
-                 *
-                 * @todo Add CC/BCC capabilities to emailer, so this doesn't require
-                 * sending a second email.
-                 */
-                $data['to'] = $this->settings_lib->item('system_email');
-                if (! empty($data['to'])) {
-                    $this->emailer->send($data);
-                }
-            }
+            
+            
         } else {
             // If the message was not sent successfully, set an error message.
             $message    .= lang('us_err_no_email') . $this->emailer->error;

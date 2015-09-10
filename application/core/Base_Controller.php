@@ -92,7 +92,7 @@ class Base_Controller extends MX_Controller
         $this->lang->load('application');
 
         $cacheDriver = array();
-
+        
         // Performance optimizations for production environments.
         if (ENVIRONMENT == 'production') {
             // Saving queries can vastly increase the memory usage
@@ -235,6 +235,8 @@ class Base_Controller extends MX_Controller
 
     protected function showProfiler($frontEnd = true)
     {
+        
+       
         // $this->input->is_cli_request() is deprecated in CI 3.0, but the replacement
         // common is_cli() function is not available in CI 2.2.
         $isCliRequest = substr(CI_VERSION, 0, 1) == '2' ? $this->input->is_cli_request() : is_cli();

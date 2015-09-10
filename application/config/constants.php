@@ -112,6 +112,12 @@ define('SITE_AREA', 'admin');
 define('LOGIN_URL', 'login');
 define('REGISTER_URL', 'register');
 
+
+define('FROM_NAME',     'Admin'); //local and dev
+
+define('MANDRILLKEY', 'YbfG3X7IxKtYm7oK0O5Ocw'); //local and dev
+//travel.pose@gmail.com  /   Saibaba@008
+
 // -----------------------------------------------------------------------------
 // The 'IS_AJAX' constant allows for a quick simple test as to whether the current
 // request was made with XHR.

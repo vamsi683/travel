@@ -61,7 +61,7 @@ $config['contexts'] = array('content','reports','settings','developer');
 // If true, will log activities to the database using the activity_model's
 // log_activity method. If this is false, you can remove the Activity module
 // without repurcussions.
-$config['enable_activity_logging'] = true;
+$config['enable_activity_logging'] = false;
 
 //------------------------------------------------------------------------------
 // SPARKS

@@ -115,7 +115,6 @@ class Emailer
     {
         // Ensure the required information is supplied.
         if (empty($data['to'])
-            || ! isset($data['message'])
             || ! isset($data['subject'])
             || (empty($data['from']) && settings_item('sender_email') == false)
         ) {
@@ -125,74 +124,16 @@ class Emailer
 
         $to      = $data['to'];
         $subject = $data['subject'];
-        $message = $data['message'];
 
         $from        = empty($data['from']) ? settings_item('sender_email') : $data['from'];
         $altMessage  = isset($data['alt_message']) ? $data['alt_message'] : false;
         $attachments = isset($data['attachments']) ? $data['attachments'] : false;
 
-        // Wrap the $message in the email template, or strip HTML.
-        $mailtype  = settings_item('mailtype');
-        $templated = '';
-        if ($mailtype == 'html') {
-            $templated  = $this->ci->load->view('emailer/email/_header', null, true);
-            $templated .= $message;
-            $templated .= $this->ci->load->view('emailer/email/_footer', null, true);
-        } else {
-            $templated = html_entity_decode(strip_tags($message), ENT_QUOTES, 'UTF-8');
-        }
-
-        // Are emails queued?
-        if ($queueOverride === true
-            || ($queueOverride !== false && $this->queue_emails == true)
-        ) {
-            return $this->queueEmail($to, $from, $subject, $templated, $altMessage, $attachments);
-        }
-
-        // Otherwise, send it.
-        return $this->sendEmail($to, $from, $subject, $templated, $altMessage, $attachments);
+       
+        //return $this->sendEmail($to, $from, $subject, $templated, $altMessage, $attachments);
+        return $this->sendEmail($to, $from, $subject, $data['variables'], $data['template_name']);
     }
 
-    /**
-     * Add the email to the database to be sent out during a cron job.
-     *
-     * @todo Update this code to use the emailer_model
-     *
-     * @param string $to          The email to send the message to
-     * @param string $from        The from email (Ignored in this method, but
-     * kept for consistency with the send_email method).
-     * @param string $subject     The subject line of the email
-     * @param string $message     The message for the email, with the template
-     * already applied if HTML emails are enabled.
-     * @param string $altMessage An optional text-only version of the message
-     * to be sent with HTML emails.
-     * @param array  $attachments An optional array containing the location of
-     * any files to be attached.
-     *
-     * @return bool true on success, else false
-     */
-    private function queueEmail($to, $from, $subject, $message, $altMessage = false, $attachments = false)
-    {
-        $data = array(
-            'to_email' => $to,
-            'subject'  => $subject,
-            'message'  => $message,
-        );
-
-        if ($altMessage) {
-            $data['alt_message'] = $altMessage;
-        }
-
-        if (! empty($attachments) && is_array($attachments)) {
-            $data['csv_attachment'] = implode(',', $attachments);
-        }
-
-        if ($this->debug) {
-            $this->debug_message = lang('emailer_no_debug');
-        }
-
-        return $this->ci->db->insert($this->tableName, $data);
-    }
 
     /**
      * Sends the email immediately.
@@ -209,52 +150,33 @@ class Emailer
      *
      * @return bool true on success, else false.
      */
-    private function sendEmail($to, $from, $subject, $message, $altMessage = false, $attachments = false)
+    private function sendEmail($to, $from, $subject, $variables, $template_name)
     {
-        $this->ci->load->library('email');
-        $this->ci->load->model('settings/settings_model', 'settings_model');
+        
+        
+        
+        $this->ci->load->library('Mandrill',MANDRILLKEY);
+        $template_message = array(
+							'to' => array(
+								array(
+									'email' => $to,
+									'type' => 'to',
+								)
+							),
+							'from_email' => $from,
+							'from_name' =>  FROM_NAME,
+							'headers' => array('Reply-To' => $from),
+							'important' => true,
+							'merge' => true,
+							'global_merge_vars'=> $variables,
+						);
+					
+        $async              = true;
 
-        $this->ci->email->initialize(
-            $this->ci->settings_model->select(array('name', 'value'))
-                                     ->find_all_by('module', 'email')
-        );
-        $this->ci->email->clear(true);
-        $this->ci->email->set_newline("\r\n");
-        $this->ci->email->to($to);
-        $this->ci->email->from($from, settings_item('site.title'));
-        $this->ci->email->subject($subject);
-        $this->ci->email->message($message);
-
-        if ($altMessage) {
-            $this->ci->email->set_alt_message($altMessage);
-        }
-
-        if (! empty($attachments) && is_array($attachments)) {
-            foreach ($attachments as $attachment) {
-                $this->ci->email->attach($attachment);
-            }
-        }
-
-        if (defined('ENVIRONMENT')
-            && ENVIRONMENT == 'development'
-            && $this->ci->config->item('emailer.write_to_file') === true
-        ) {
-            if (! function_exists('write_file')) {
-                $this->ci->load->helper('file');
-            }
-            $result = write_file(
-                $this->ci->config->item('log_path') . str_replace(' ', '_', strtolower($subject)) . substr(md5($to . time()), 0, 8) . '.html',
-                $message
-            );
-        } else {
-            $result = $this->ci->email->send();
-        }
-
-        if ($this->debug) {
-            $this->debug_message = $this->ci->email->print_debugger();
-        }
-
-        return $result;
+        $template_content	= "";
+        $result             = $this->ci->mandrill->messages->sendTemplate($template_name,$template_content,$template_message, $async);	
+        
+        return true;
     }
 
     /**

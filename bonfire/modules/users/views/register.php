@@ -3,7 +3,7 @@
         <div class="row omb_row-sm-offset-3">
             <div class="col-xs-12 col-sm-6">
                 <h3><?php echo lang('us_sign_up'); ?></h3>
-                <?php echo Template::message(); ?>
+                
             </div>
         </div>
         
@@ -30,12 +30,12 @@
                 </div>
                 <div class="col_half ">
                     <label for="rgstr_frm-email"><?php echo lang('bf_password'); ?>:</label>
-                    <input type="text" id="password" name="password" value="<?php echo set_value('password', isset($user) ? $user->display_name : ''); ?>" class="form-control" />
+                    <input type="password" id="password" name="password" value="<?php echo set_value('password', isset($user) ? $user->display_name : ''); ?>" class="form-control" />
                 </div>
                 
                 <div class="col_half col_last">
                     <label for="rgstr_frm-pass_confirm"><?php echo lang('bf_password_confirm'); ?>:</label>
-                    <input type="text" id="pass_confirm" name="pass_confirm" value="<?php echo set_value('pass_confirm', isset($user) ? $user->display_name : ''); ?>" class="form-control" />
+                    <input type="password" id="pass_confirm" name="pass_confirm" value="<?php echo set_value('pass_confirm', isset($user) ? $user->display_name : ''); ?>" class="form-control" />
                 </div>
                 
                 

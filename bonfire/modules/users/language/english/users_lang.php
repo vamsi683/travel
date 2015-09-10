@@ -116,6 +116,8 @@ $lang['us_account_created_success'] = 'Your account has been created. Please log
 $lang['us_invalid_user_id']         = 'Invalid user id.';
 $lang['us_invalid_email']           = 'Cannot find that email in our records.';
 
+
+$lang['us_reset_password_heading']     = 'Reset Your Password';
 $lang['us_reset_password_note']     = 'Enter your new password below to reset your password.';
 $lang['us_reset_invalid_email']     = 'That did not appear to be a valid password reset request.';
 $lang['us_reset_pass_subject']      = 'Your Temporary Password';

@@ -3,14 +3,14 @@ $('#login_frm').validate({
      rules: {
         login: {
           minlength: 3,
-          maxlength: 20,
+          maxlength: 60,
           required: true
         },
         password: {
           required: true
         }
     },
-  highlight: function(element) {
+    highlight: function(element) {
         $(element).closest('.form-group').addClass('error');
     },
     unhighlight: function(element) {
@@ -24,7 +24,7 @@ $('#login_frm').validate({
         } else {
             error.insertAfter(element);
         }
-    },
+    }
 
 });
 

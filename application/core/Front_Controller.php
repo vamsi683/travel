@@ -31,6 +31,7 @@ class Front_Controller extends Base_Controller
         $this->load->library('assets');
 
         $this->set_current_user();
+        
 
         Events::trigger('after_front_controller');
     }//end __construct()

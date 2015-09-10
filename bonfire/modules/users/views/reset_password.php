@@ -1,45 +1,37 @@
-	<div class="page-header">
-		<h1>Reset Your Password</h1>
-	</div>
 
-	<div class="alert alert-info fade in">
-		<h4 class="alert-heading"><?php echo lang('us_reset_password_note'); ?></h4>
-	</div>
+<div class="container clearfix">
+    <div class="nobottommargin">
+        <div class="row omb_row-sm-offset-3">
+            <div class="col-xs-12 col-sm-6">
+                
+                <h3><?php echo lang('us_reset_password_heading'); ?></h3>
+                <p><?php echo lang('us_reset_password_note'); ?></p>
+            </div>
+        </div>
 
-
-<?php if (validation_errors()) : ?>
-	<div class="alert alert-error fade in">
-		<?php echo validation_errors(); ?>
-	</div>
-<?php endif; ?>
-
-<div class="row-fluid">
-	<div class="span12">
-
-<?php echo form_open($this->uri->uri_string(), 'class="form-horizontal"'); ?>
-
+     <?php echo form_open($this->uri->uri_string(), array('autocomplete' => 'off', 'id' => 'rrpassword_frm', 'name' => 'rrpassword_frm', 'class' => 'nobottommargin')); ?>   
 	<input type="hidden" name="user_id" value="<?php echo $user->id ?>" />
+    <div class="row omb_row-sm-offset-3">
+        <div class="col-xs-12 col-sm-6 content ">	
+            <div class="col_full">
+                <label for="password"><?php echo lang('bf_password'); ?>:</label>
+                <input  tabindex="1"  type="password"  id="password" name="password" value="" class="form-control" />
+            </div>
+            <div class="col_full">
+                <label for="login-form-password"><?php echo lang('bf_password_confirm'); ?>:</label>
+                <input type="password" id="pass_confirm" name="pass_confirm" value=""  tabindex="2" class="form-control" />
+            </div>    
 
-	<div class="control-group <?php echo iif( form_error('password') , 'error') ;?>">
-		<label class="control-label" for="password"><?php echo lang('bf_password'); ?></label>
-		<div class="controls">
-			<input class="span6" type="password" name="password" id="password" value="" placeholder="Password...." />
-			<p class="help-block"><?php echo lang('us_password_mins'); ?></p>
-		</div>
-	</div>
+        </div>
+    </div>
+   <div class="row omb_row-sm-offset-3">
+        <div class="col-xs-12 col-sm-6">	
+                <button class="button button-3d nomargin" type="submit" name="set_password" id="submit"><?php e(lang('us_set_password')); ?></button>
+           
+        </div>
+    </div>	 	
 
-	<div class="control-group <?php echo iif( form_error('pass_confirm') , 'error') ;?>">
-		<label class="control-label" for="pass_confirm"><?php echo lang('bf_password_confirm'); ?></label>
-		<div class="controls">
-			<input class="span6" type="password" name="pass_confirm" id="pass_confirm" value="" placeholder="<?php echo lang('bf_password_confirm'); ?>" />
-		</div>
-	</div>
-
-	<div class="control-group">
-		<div class="controls">
-			<input class="btn btn-primary" type="submit" name="set_password" id="submit" value="<?php e(lang('us_set_password')); ?>"  />
-		</div>
-	</div>
+     
 
 <?php echo form_close(); ?>
 

@@ -12924,3 +12924,13 @@ body:not(.no-transition) #wrapper,
 	padding:0!important
 }
 
+.error_custom {
+    color: #c93605 !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    padding: 3px 4px !important;
+    text-shadow: 0 1px 1px rgba(164, 44, 4, 0.2) !important;
+}
+
+.form.a input.error {border:2px solid #eb053b;}
+label.error { color: #ebo53b;}
