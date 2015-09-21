@@ -87,3 +87,6 @@ $('#pass_confirm').blur(function() {
 		$("#match").css('display','inline-block');
 	}
 });
+
+
+

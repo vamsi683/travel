@@ -63,7 +63,7 @@
 							<div id="post-list-footer">
 								<div class="spost clearfix">
 									<div class="entry-image">
-										<a href="#"><img src="images/magazine/small/1.jpg" alt="Package"></a>
+										<a href="#">IMG</a>
 									</div>
 									<div class="entry-c">
 										<div class="entry-title">
@@ -77,7 +77,7 @@
 
 								<div class="spost clearfix">
 									<div class="entry-image">
-										<a href="#"><img src="images/magazine/small/2.jpg" alt="Package"></a>
+										<a href="#">IMG</a>
 									</div>
 									<div class="entry-c">
 										<div class="entry-title">
@@ -91,7 +91,7 @@
 
 								<div class="spost clearfix">
 									<div class="entry-image">
-										<a href="#"><img src="images/magazine/small/3.jpg" alt="Package"></a>
+										<a href="#">IMG</a>
 									</div>
 									<div class="entry-c">
 										<div class="entry-title">

@@ -197,7 +197,12 @@ class Users extends Front_Controller
                 'inline'
             );
         }
-
+        
+        
+         Assets::add_js(
+                $this->load->view('users_profile_js', array('settings' => $this->siteSettings), true),
+                'inline'
+            );
         // Generate password hint messages.
         $this->user_model->password_hints();
 
@@ -205,7 +210,7 @@ class Users extends Front_Controller
         Template::set('languages', unserialize($this->settings_lib->item('site.languages')));
 
         Template::set_view('profile');
-        Template::render();
+        Template::render('user');
     }
 
     /**

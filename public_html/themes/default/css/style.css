@@ -3082,7 +3082,7 @@ body.side-panel-open:not(.device-xxs):not(.device-xs):not(.device-sm) .body-over
 
 #page-title {
 	position: relative;
-	padding: 50px 0;
+	padding: 10px 0;
 	background-color: #F5F5F5;
 	border-bottom: 1px solid #EEE;
 }
@@ -3274,7 +3274,7 @@ body.stretched .container-fullwidth .breadcrumb { right: 60px !important; }
 
 .content-wrap {
 	position: relative;
-	padding: 80px 0;
+	padding: 20px 0;
 }
 
 #content .container { position: relative; }

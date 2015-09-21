@@ -85,7 +85,7 @@ $lang['us_user_management']			= 'User Management';
 $lang['us_email_in_use']			= 'The %s address is already in use. Please choose another.';
 
 $lang['us_edit_profile']			= 'Edit Profile';
-$lang['us_edit_note']				= 'Enter your details below and click Save.';
+$lang['us_edit_note']				= 'Edit your personal data';
 
 $lang['us_reset_password']			= 'Reset Password';
 $lang['us_reset_note']				= 'Enter your email and we will send a temporary password to you.';
@@ -214,3 +214,9 @@ $lang['us_force_password_reset']    = 'Force password reset on next login';
 $lang['us_facebook']					= 'Facebook';
 $lang['us_google']				     	= 'Google';
 $lang['us_twitter']			      		= 'Twitter';
+
+
+$lang['us_edit_tab1']			      		= 'My Profile Image';
+$lang['us_edit_tab2']			      		= 'Basic Info';
+$lang['us_edit_tab3']			      		= 'Change Password';
+$lang['us_edit_tab4']			      		= 'My Profile';
